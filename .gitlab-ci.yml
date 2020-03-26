@@ -7,6 +7,4 @@ cache:
 test:
   script:
     - npm install
-    - npm install mocha -g
-    - npm install typescript -g
     - npm run compile

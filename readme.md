@@ -1,11 +1,11 @@
-analise-advpl
+protheusdoc
 
-Criação de modulo para validação de fontes ADVPL.
+Extension for interprate ProtheusDoc and generate HTML.
 
 ## Install
 
 ```sh
-npm install analise-advpl --save
+npm install protheusdoc --save
 ```
 
 ## Test
@@ -17,38 +17,22 @@ npm run test
 ## Example usage in global scope
 
 ```js
-const fileSystem = require('file-system');
-let validaAdvpl = require('analise-advpl');
-let conteudo = fileSystem.readFileSync('c:\\arquivo.prw', 'latin1');
+let protheusDoc = require('../lib/protheusDoc');
+const fileSystem = require('fs');
+let directoryPath = __dirname + '\\files';
+let objeto = new protheusDoc.ProtheusDoc();
 
-//o primeiro parâmetro é o padrão de comentários e o segundo a localização de mensagens
-let objeto = new validaAdvpl.ValidaAdvpl([], 'ptb');
-//define o nome do banco de dados ou owner
-objeto.ownerDb = ['PROTHEUS'];
-//define os códigos de empresas que irá validar na queryes
-objeto.empresas = ['01'];
-//efetua a validação do fonte
-objeto.validacao(conteudo, 'COM ERRO');
-```
+let conteudo = fileSystem.readFileSync(
+  'C:\\Users\\robso\\eclipse-workspace\\TEMP\\tmp\\CNTA121.PRW',
+  'latin1'
+);
 
-```js
-let validaProjeto = require('../lib/validaProjeto');
-let objeto = new validaProjeto.validaProjeto([]);
-
-let comentario = [
-  '/*//#########################################################################################',
-  'Projeto\\ \\:',
-  'Modulo\\ \\ \\:',
-  'Fonte\\ \\ \\ \\:',
-  'Objetivo\\:'
-];
-
-//seta variáveis
-objeto.ownerDb = ['PROTHEUS'];
-objeto.empresas = ['01'];
-objeto.comentFontPad = comentario;
-
-objeto.validaProjeto([
-  'D:\\rogerio\\Dropbox\\Trabalho\\WORKSPACE\\POUPEX\\ADVPL\\protheus'
-]);
+objeto
+  .FileHtml(conteudo)
+  .then(html => {
+    console.log(html);
+  })
+  .catch(e => {
+    console.log(e);
+  });
 ```
