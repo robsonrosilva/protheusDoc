@@ -1,0 +1,30 @@
+{
+  "name": "protheusdoc",
+  "version": "0.0.0",
+  "description": "Extension for interprate ProtheusDoc and generate HTML.",
+  "types": "lib/src/index.d.ts",
+  "main": "lib/src/index.js",
+  "scripts": {
+    "prepare": "npm run compile",
+    "compile": "tsc -p ./",
+    "postbuild": "cpy '**/html/**' ../lib/ --cwd=src/ --parents",
+    "test": "npm run compile && mocha \"./test/validaadvpl.js\""
+  },
+  "keywords": [],
+  "author": "Robson Rogério Silva",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^10.14.14",
+    "asserts": "^4.0.2",
+    "chai": "^4.2.0",
+    "file-system": "^2.2.2",
+    "globby": "^10.0.1",
+    "i18n": "^0.8.3",
+    "mocha": "^5.2.0"
+  },
+  "devDependencies": {
+    "cpy-cli": "^3.1.0",
+    "del-cli": "^3.0.0",
+    "typescript": "^3.5.3"
+  }
+}
