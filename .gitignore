@@ -6,3 +6,4 @@ out
 package-lock.json
 .tmp
 /lib/*
+/test/out/**/*.html
