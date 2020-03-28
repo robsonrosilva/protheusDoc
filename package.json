@@ -1,13 +1,13 @@
 {
   "name": "protheusdoc",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Extension for interprate ProtheusDoc and generate HTML.",
   "types": "lib/src/index.d.ts",
   "main": "lib/src/index.js",
   "scripts": {
     "prepare": "npm run compile",
     "compile": "tsc -p ./",
-    "postbuild": "cpy '**/html/**' ../lib/ --cwd=src/ --parents",
+    "precompile": "cpy '**/html/**' ../lib/ --cwd=src/ --parents",
     "test": "npm run compile && mocha \"./test/validaadvpl.js\""
   },
   "keywords": [],
@@ -26,5 +26,17 @@
     "cpy-cli": "^3.1.0",
     "del-cli": "^3.0.0",
     "typescript": "^3.5.3"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robsonrosilva/protheusDoc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/robsonrosilva/protheusDoc/issues"
+  },
+  "homepage": "https://github.com/robsonrosilva/protheusDoc#readme"
 }
