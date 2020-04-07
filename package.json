@@ -1,5 +1,5 @@
 {
-  "name": "protheusdoc",
+  "name": "protheusdoc-html",
   "version": "1.0.0",
   "description": "Extension for interprate ProtheusDoc and generate HTML.",
   "types": "lib/src/index.d.ts",

@@ -1,5 +1,5 @@
-export class prothesuDocHistory {
-  date: string;
-  username: string;
-  description: string;
+export class ProthesuDocHistory {
+  date: string = '';
+  username: string = '';
+  description: string = '';
 }

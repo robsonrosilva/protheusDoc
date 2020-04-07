@@ -5,5 +5,4 @@ out
 *.tgz
 package-lock.json
 .tmp
-/lib/*
 /test/out/**/*.html

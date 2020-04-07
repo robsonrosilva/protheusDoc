@@ -8,11 +8,11 @@ import {
 } from './models/project-protheus-doc';
 import { FileProtheusDoc } from './models/file-protheus-doc';
 import { ItemProtheusDoc } from './models/item-protheus-doc';
-import { prothesuDocReturn } from './models/protheus-doc-return';
-import { prothesuDocParam } from './models/protheus-doc-parm';
-import { prothesuDocHistory } from './models/protheus-doc-history';
+import { ProthesuDocReturn } from './models/protheus-doc-return';
+import { ProthesuDocParam } from './models/protheus-doc-parm';
+import { ProthesuDocHistory } from './models/protheus-doc-history';
 
-export class ProtheusDoc {
+export class ProtheusDocHTML {
   regex: RegExp = /^(\s*\/\*\/(.*)?\{Protheus.doc\}\s*)(.*)?/i;
   regexItem: RegExp = /^(\s?@)([A-Za-z0-9]+)+(\s)+(.*)?/i;
   regexEnd: RegExp = /(\*\/)/i;
@@ -20,7 +20,7 @@ export class ProtheusDoc {
   public ProjectInspect(
     pathsProject: string[],
     outPath: string,
-    templatesPath: string
+    templatesPath?: string
   ): Promise<ProjectProtheusDoc> {
     return new Promise((resolve: Function, reject: Function) => {
       let project = new ProjectProtheusDoc();
@@ -182,7 +182,7 @@ export class ProtheusDoc {
                 .trim();
               let content: string = lines[key].replace(this.regexItem, '$4');
               if (property === 'return') {
-                let returnPar = new prothesuDocReturn();
+                let returnPar = new ProthesuDocReturn();
                 let splitContent = content.split(',');
                 returnPar.type = splitContent[0] ? splitContent[0].trim() : '';
                 returnPar.description = splitContent[1]
@@ -190,7 +190,7 @@ export class ProtheusDoc {
                   : '';
                 itemDoc.return.push(returnPar);
               } else if (property === 'param') {
-                let param = new prothesuDocParam();
+                let param = new ProthesuDocParam();
                 let splitContent = content.split(',');
                 param.name = splitContent[0] ? splitContent[0].trim() : '';
                 param.type = splitContent[1] ? splitContent[1].trim() : '';
@@ -199,7 +199,7 @@ export class ProtheusDoc {
                   : '';
                 itemDoc.param.push(param);
               } else if (property === 'history') {
-                let history = new prothesuDocHistory();
+                let history = new ProthesuDocHistory();
                 let splitContent = content.split(',');
                 history.date = splitContent[0] ? splitContent[0].trim() : '';
                 history.username = splitContent[1]
