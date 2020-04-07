@@ -1,4 +1,5 @@
 const fileSystem = require('fs');
+const path = require('path');
 import * as globby from 'globby';
 import {
   ProjectProtheusDoc,
@@ -18,7 +19,8 @@ export class ProtheusDoc {
 
   public ProjectInspect(
     pathsProject: string[],
-    outFile: string
+    outPath: string,
+    templatesPath: string
   ): Promise<ProjectProtheusDoc> {
     return new Promise((resolve: Function, reject: Function) => {
       let project = new ProjectProtheusDoc();
@@ -77,9 +79,40 @@ export class ProtheusDoc {
                 paths = paths.filter((x) => x);
                 this.addPath(project.tree, paths, project.files[x].fileName);
               }
-              if (outFile) {
+              if (outPath) {
+                // se não tem templates usa os arquivos da sample
+                if (!templatesPath) {
+                  templatesPath = path.join(__dirname, 'sample');
+                }
+
+                fileSystem.mkdir(outPath, { recursive: true }, (err) => {
+                  if (err) throw err;
+                });
+
+                let filelist = ['index', 'file'];
+                let fileExtensions = ['css', 'html', 'js'];
+
+                filelist.forEach((file) => {
+                  let contentFile = '';
+                  fileExtensions.forEach((extension) => {
+                    contentFile = fileSystem.readFileSync(
+                      path.join(templatesPath, file + '.' + extension),
+                      'utf8'
+                    );
+
+                    fileSystem.writeFile(
+                      path.join(outPath, file + '.' + extension),
+                      contentFile,
+                      { flag: 'w' },
+                      function (err) {
+                        if (err) return console.log(err);
+                      }
+                    );
+                  });
+                });
+
                 fileSystem.writeFile(
-                  outFile,
+                  path.join(outPath, 'data.js'),
                   `
 				  let dataProject = ${JSON.stringify(project)}
 				  `,
