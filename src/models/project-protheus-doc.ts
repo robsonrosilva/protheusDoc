@@ -1,9 +1,8 @@
 import { FileProtheusDoc } from './file-protheus-doc';
-import { triggerAsyncId } from 'async_hooks';
 
 export class ProjectProtheusDoc {
   projectName: string = '';
-  tree: TreeItems;
+  tree: TreeItems = new TreeItems('');
   files: FileProtheusDoc[] = [];
 }
 
@@ -23,7 +22,7 @@ export class FileTree {
   uniqueName: string;
   file: string;
 
-  constructor(file, uniqueName) {
+  constructor(file: string, uniqueName: string) {
     this.file = file;
     this.uniqueName = uniqueName;
   }

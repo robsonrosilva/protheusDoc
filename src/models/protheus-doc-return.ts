@@ -1,4 +1,4 @@
-export class prothesuDocReturn {
-  type: string;
-  description: string;
+export class ProthesuDocReturn {
+  type: string = '';
+  description: string = '';
 }

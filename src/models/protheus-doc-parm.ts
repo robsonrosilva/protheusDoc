@@ -1,6 +1,6 @@
-export class prothesuDocParam {
-  name: string;
-  type: string;
-  description: string;
-  obrigatory: string;
+export class ProthesuDocParam {
+  name: string = '';
+  type: string = '';
+  description: string = '';
+  obrigatory: string = '';
 }

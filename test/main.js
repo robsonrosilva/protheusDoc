@@ -1,5 +1,5 @@
 let protheusDoc = require('../lib/protheusDoc');
-let objeto = new protheusDoc.ProtheusDoc();
+let objeto = new protheusDoc.ProtheusDocHTML();
 
 objeto
   .ProjectInspect(
