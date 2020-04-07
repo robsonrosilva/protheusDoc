@@ -16,7 +16,10 @@ export class ProtheusDoc {
   regexItem: RegExp = /^(\s?@)([A-Za-z0-9]+)+(\s)+(.*)?/i;
   regexEnd: RegExp = /(\*\/)/i;
 
-  public ProjectInspect(pathsProject: string[]): Promise<ProjectProtheusDoc> {
+  public ProjectInspect(
+    pathsProject: string[],
+    outFile: string
+  ): Promise<ProjectProtheusDoc> {
     return new Promise((resolve: Function, reject: Function) => {
       let project = new ProjectProtheusDoc();
       let advplExtensions = ['prw', 'prx', 'prg', 'apw', 'apl', 'tlpp'];
@@ -74,6 +77,19 @@ export class ProtheusDoc {
                 paths = paths.filter((x) => x);
                 this.addPath(project.tree, paths, project.files[x].fileName);
               }
+              if (outFile) {
+                fileSystem.writeFile(
+                  outFile,
+                  `
+				  let dataProject = ${JSON.stringify(project)}
+				  `,
+                  { flag: 'w' },
+                  function (err) {
+                    if (err) return console.log(err);
+                  }
+                );
+              }
+
               resolve(project);
             })
             .catch((e) => {
