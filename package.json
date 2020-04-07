@@ -6,7 +6,7 @@
   "main": "lib/src/index.js",
   "scripts": {
     "prepare": "npm run compile",
-    "compile": "tsc -p ./ && cpy 'sample/**' '../lib/' --cwd=src --parents",
+    "compile": "tsc -p ./  && cpy 'sample/**' '../lib/' --cwd=src --parents",
     "test": "npm run compile && mocha \"./test/validaadvpl.js\""
   },
   "keywords": [],
