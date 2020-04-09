@@ -13,15 +13,13 @@
   "author": "Robson Rogério Silva",
   "license": "ISC",
   "dependencies": {
+    "file-system": "^2.2.2",
+    "globby": "^10.0.2"
+  },
+  "devDependencies": {
     "@types/node": "^10.14.14",
     "asserts": "^4.0.2",
     "chai": "^4.2.0",
-    "file-system": "^2.2.2",
-    "globby": "^10.0.2",
-    "i18n": "^0.8.3",
-    "mocha": "^5.2.0"
-  },
-  "devDependencies": {
     "cpy-cli": "^3.1.0",
     "del-cli": "^3.0.0",
     "typescript": "^3.5.3"
