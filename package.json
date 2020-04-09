@@ -1,6 +1,6 @@
 {
   "name": "protheusdoc-html",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Extension for interprate ProtheusDoc and generate HTML.",
   "types": "lib/src/index.d.ts",
   "main": "lib/src/index.js",
