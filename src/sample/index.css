@@ -70,6 +70,6 @@
   vertical-align: text-top;
 }
 iframe {
-  height: -webkit-fill-available;
-  width: -webkit-fill-available;
+  height: 100%;
+  width: 100%;
 }
