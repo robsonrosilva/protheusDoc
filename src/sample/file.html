@@ -18,105 +18,89 @@
 </head>
 
 <body>
-  <h1 id="fonte"></h1>
-  <p id="description"></p>
-  <div id="content">
-    <a name="%functionName%"></a>
-    <h2>%functionName%</h2>
-    <p>%description%</p>
-    <pre></pre>
 
-    <dl>
-      <dt>Autor</dt>
-      <dd>%author%</dd>
-      <dt>Desde</dt>
-      <dd>%since%</dd>
-      <dt>Versão</dt>
-      <dd>%version%</dd>
-    </dl>
-    <!--
-		<h3>Sumário</h3>
-		<h4>Construtores</h4>
+  <div class="container-xl">
+    <div class="row no-gutters">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title" id="fonte">Fonte</h5>
+            <!-- <p class="card-text" id="description"></p> -->
+          </div>
 
-		<dl>
-		<dt>
-			<a href="#${anchor}"
-			><code>$identifier$dAp$params$dFp</code></a
-			>
-		</dt>
-		<dd>$summary</dd>
-		</dl>
-		<h3>Métodos</h3>
+          <div class="card-body" id="content">
+            <a name="%functionName%"></a>
+            <h2>%functionName%</h2>
+            <p>%description%</p>
+            <pre></pre>
 
-		<dl>
-		<dt>
-			<a href="#${anchor}"
-			><code>$identifier$dAp$params$dFp</code></a
-			>
-		</dt>
-		<dd>$summary</dd>
-		</dl>
-		-->
-    <h3>Definição</h3>
+            <dl>
+              <dt>Autor</dt>
+              <dd>%author%</dd>
+              <dt>Desde</dt>
+              <dd>%since%</dd>
+              <dt>Versão</dt>
+              <dd>%version%</dd>
+            </dl>
+            <!--
+              		<h3>Sumário</h3>
+              		<h4>Construtores</h4>
+              
+              		<dl>
+              		<dt>
+              			<a href="#${anchor}"
+              			><code>$identifier$dAp$params$dFp</code></a
+              			>
+              		</dt>
+              		<dd>$summary</dd>
+              		</dl>
+              		<h3>Métodos</h3>
+              
+              		<dl>
+              		<dt>
+              			<a href="#${anchor}"
+              			><code>$identifier$dAp$params$dFp</code></a
+              			>
+              		</dt>
+              		<dd>$summary</dd>
+              		</dl>
+              		-->
+            <h3>Definição</h3>
 
-    <h4>Sintaxe</h4>
+            <h4>Sintaxe</h4>
 
-    <p>
-      <code>%sintaxe%</code>
-    </p>
+            <p>
+              <code>%sintaxe%</code>
+            </p>
 
-    <h4>Parâmetros</h4>
+            <h4>Parâmetros</h4>
 
-    <table>
-      <tr>
-        <th>Nome</th>
-        <th>Tipo</th>
-        <th>Uso</th>
-        <th>Descrição</th>
-      </tr>
-      %param%
-      <!--
-  <tr>
-    <td>$param.identifier</td>
-    <td>$param.type</td>
-    <td>Obrigatório</td>
-    <td>Opcional</td>
-    <td>$param.description</td>
-  </tr>
-  -->
-    </table>
+            %param%
 
-    <h4>Retorno</h4>
+            <h4>Retorno</h4>
 
-    <table>
-      <tr>
-        <th>Tipo</th>
-        <th>Descrição</th>
-      </tr>
-      %return%
-      <!--
-  <tr class="return">
-    <td>$return.type</td>
-    <td>$return.description</td>
-  </tr>
-  -->
-    </table>
+            %return%
 
-    <h3>Exemplo</h3>
+            <h3>Exemplo</h3>
 
-    %example%
-    <!--<code>$example.code</code>-->
+            %example%
+            <!--<code>$example.code</code>-->
 
-    <h4>Outras Informações</h4>
+            <h4>Outras Informações</h4>
 
-    <table>
-      %otherInfo%
-      <!---->
-    </table>
+            <table>
+              %otherInfo%
+              <!---->
+            </table>
 
-    <h3>Veja também</h3>
-    %link%
-    <!--<a href="$ref.url" target="_blank">$ref.description</a>$ref.description-->
+            <h3>Veja também</h3>
+            %link%
+            <!--<a href="$ref.url" target="_blank">$ref.description</a>$ref.description-->
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 

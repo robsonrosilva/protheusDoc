@@ -5,7 +5,7 @@ $(document).ready(function () {
     return x.fileName === file;
   });
   if (fileData) {
-    $('#fonte').html('Fonte : ' + fileData.fileName);
+    $('#fonte').html('Fonte: ' + fileData.fileName);
     if (fileData.description) {
       $('#description').html(fileData.description);
     }
@@ -61,6 +61,15 @@ function functionHtml(functionObject, functionHtml) {
 
   let sintaxe = functionObject.functionName + '(';
   let param = '';
+
+  param += "<table>";
+  param += "  <tr>";
+  param += "    <th>Nome</th>";
+  param += "    <th>Tipo</th>";
+  param += "    <th>Uso</th>";
+  param += "    <th>Descrição</th>";
+  param += "  </tr>";
+
   for (let i = 0; i < functionObject.param.length; i++) {
     sintaxe += functionObject.param[i].name;
     sintaxe += i == functionObject.param.length - 1 ? '' : ',';
@@ -70,16 +79,28 @@ function functionHtml(functionObject, functionHtml) {
     param += '<td>' + functionObject.param[i].obrigatory + '</td>';
     param += '<td>' + functionObject.param[i].description + '</td></tr>';
   }
+
+  param += "</table>";
+
   sintaxe += ')';
 
   functionHtml = functionHtml.replace('%sintaxe%', sintaxe);
   functionHtml = functionHtml.replace('%param%', param);
 
   let returnHtml = '';
+  returnHtml += "<table>";
+  returnHtml += "    <tr>";
+  returnHtml += "      <th>Tipo</th>";
+  returnHtml += "      <th>Descrição</th>";
+  returnHtml += "    </tr>";
+
   for (let i = 0; i < functionObject.return.length; i++) {
     returnHtml += '<tr><td>' + functionObject.return[i].type + '</td>';
     returnHtml += '<td>' + functionObject.return[i].description + '</td></tr>';
   }
+
+  returnHtml += "  </table>";
+
   functionHtml = functionHtml.replace('%return%', returnHtml);
 
   let example = '';
