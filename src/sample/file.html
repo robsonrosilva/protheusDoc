@@ -23,26 +23,30 @@
     <div class="row no-gutters">
       <div class="col">
         <div class="card">
-          <div class="card-header">
-            <h5 class="card-title" id="fonte">Fonte</h5>
-            <!-- <p class="card-text" id="description"></p> -->
+          <div class="card-header" id="fonte">
+            Fonte
           </div>
 
-          <div class="card-body" id="content">
-            <a name="%functionName%"></a>
-            <h2>%functionName%</h2>
-            <p>%description%</p>
-            <pre></pre>
+          <div class="card-body">
 
-            <dl>
-              <dt>Autor</dt>
-              <dd>%author%</dd>
-              <dt>Desde</dt>
-              <dd>%since%</dd>
-              <dt>Versão</dt>
-              <dd>%version%</dd>
-            </dl>
-            <!--
+            <div id="content">
+
+              <a name="%functionName%"></a>
+              <h3>%functionName% <small class="text-muted">%type%</small></h3>
+              <hr>
+
+              <p class="lead">%description%</p>
+
+              <dl>
+                <dt>Autor</dt>
+                <dd>%author%</dd>
+                <dt>Desde</dt>
+                <dd>%since%</dd>
+                <dt>Versão</dt>
+                <dd>%version%</dd>
+              </dl>
+
+              <!--
               		<h3>Sumário</h3>
               		<h4>Construtores</h4>
               
@@ -65,39 +69,40 @@
               		<dd>$summary</dd>
               		</dl>
               		-->
-            <h3>Definição</h3>
+              <h3>Definição</h3>
 
-            <h4>Sintaxe</h4>
+              <h3>Sintaxe</h3>
 
-            <p>
-              <code>%sintaxe%</code>
-            </p>
+              <p>
+                <code>%sintaxe%</code>
+              </p>
 
-            <h4>Parâmetros</h4>
+              %param%
 
-            %param%
+              %return%
 
-            <h4>Retorno</h4>
+              <h3>Exemplo</h3>
 
-            %return%
+              %example%
+              <!--<code>$example.code</code>-->
 
-            <h3>Exemplo</h3>
+              <h3>Outras Informações</h3>
 
-            %example%
-            <!--<code>$example.code</code>-->
+              <table>
+                %otherInfo%
+                <!---->
+              </table>
 
-            <h4>Outras Informações</h4>
+              <h3>Veja também</h3>
+              %link%
 
-            <table>
-              %otherInfo%
-              <!---->
-            </table>
+              <!--<a href="$ref.url" target="_blank">$ref.description</a>$ref.description-->
+              <br>
+              <hr>
+              <br>
+            </div>
 
-            <h3>Veja também</h3>
-            %link%
-            <!--<a href="$ref.url" target="_blank">$ref.description</a>$ref.description-->
           </div>
-
         </div>
       </div>
     </div>

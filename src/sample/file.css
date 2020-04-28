@@ -75,21 +75,21 @@ li + ul {
 }
 
 p {
-  margin-left: 12px;
+  margin-left: 12px !important;;
 }
 
 table {
-  margin-left: 12px;
+  margin-left: 12px !important;;
 }
 
 dl {
-  margin-left: 12px;
+  margin-left: 12px !important;
 }
 
 dt {
-  font-weight: bold;
+  font-weight: bold !important;
 }
 
 dd {
-  margin-left: 12px;
+  margin-left: 12px !important;
 }

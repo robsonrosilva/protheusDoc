@@ -46,6 +46,7 @@ function functionHtml(functionObject, functionHtml) {
     'return',
     'example',
     'link',
+    'type'
   ];
   functionHtml = functionHtml.replace(
     /\%functionName\%/g,
@@ -55,6 +56,8 @@ function functionHtml(functionObject, functionHtml) {
     '%description%',
     functionObject.description
   );
+
+  functionHtml = functionHtml.replace('%type%', functionObject.type);
   functionHtml = functionHtml.replace('%author%', functionObject.author);
   functionHtml = functionHtml.replace('%since%', functionObject.since);
   functionHtml = functionHtml.replace('%version%', functionObject.version);
@@ -62,25 +65,32 @@ function functionHtml(functionObject, functionHtml) {
   let sintaxe = functionObject.functionName + '(';
   let param = '';
 
-  param += "<table>";
-  param += "  <tr>";
-  param += "    <th>Nome</th>";
-  param += "    <th>Tipo</th>";
-  param += "    <th>Uso</th>";
-  param += "    <th>Descrição</th>";
-  param += "  </tr>";
+  param += "<h3>Parâmetros</h3>"
 
-  for (let i = 0; i < functionObject.param.length; i++) {
-    sintaxe += functionObject.param[i].name;
-    sintaxe += i == functionObject.param.length - 1 ? '' : ',';
+  if (functionObject.param.length > 0) {
 
-    param += '<tr><td>' + functionObject.param[i].name + '</td>';
-    param += '<td>' + functionObject.param[i].type + '</td>';
-    param += '<td>' + functionObject.param[i].obrigatory + '</td>';
-    param += '<td>' + functionObject.param[i].description + '</td></tr>';
+    param += '<table class="table table-striped table-bordered table-condensed table-sm">';
+    param += "<thead> <tr>";
+    param += "    <th>Nome</th>";
+    param += "    <th>Tipo</th>";
+    // param += "    <th>Uso</th>";
+    param += "    <th>Descrição</th>";
+    param += "  </tr> </thead> <tbody>";
+    // param += "  </thead> <tbody>";
+
+    for (let i = 0; i < functionObject.param.length; i++) {
+      sintaxe += functionObject.param[i].name;
+      sintaxe += i == functionObject.param.length - 1 ? '' : ',';
+
+      param += '<tr><td>' + functionObject.param[i].name + '</td>';
+      param += '<td>' + functionObject.param[i].type + '</td>';
+      // param += '<td>' + functionObject.param[i].obrigatory + '</td>';
+      param += '<td>' + functionObject.param[i].description + '</td></tr>';
+    }
+
+    param += "</tbody></table>";
+
   }
-
-  param += "</table>";
 
   sintaxe += ')';
 
@@ -88,18 +98,26 @@ function functionHtml(functionObject, functionHtml) {
   functionHtml = functionHtml.replace('%param%', param);
 
   let returnHtml = '';
-  returnHtml += "<table>";
-  returnHtml += "    <tr>";
-  returnHtml += "      <th>Tipo</th>";
-  returnHtml += "      <th>Descrição</th>";
-  returnHtml += "    </tr>";
 
-  for (let i = 0; i < functionObject.return.length; i++) {
-    returnHtml += '<tr><td>' + functionObject.return[i].type + '</td>';
-    returnHtml += '<td>' + functionObject.return[i].description + '</td></tr>';
+  returnHtml += "<h3>Retorno</h3>"
+
+  if (functionObject.return.length > 0) {
+
+    returnHtml += '<table class="table table-striped table-bordered table-condensed table-sm">';
+    returnHtml += "<thead> <tr>";
+    returnHtml += "      <th>Tipo</th>";
+    returnHtml += "      <th>Descrição</th>";
+    returnHtml += "    </tr>";
+    returnHtml += "  </tr> </thead> <tbody>";
+
+    for (let i = 0; i < functionObject.return.length; i++) {
+      returnHtml += '<tr><td>' + functionObject.return[i].type + '</td>';
+      returnHtml += '<td>' + functionObject.return[i].description + '</td></tr>';
+    }
+
+    returnHtml += "</tbody></table>";
+
   }
-
-  returnHtml += "  </table>";
 
   functionHtml = functionHtml.replace('%return%', returnHtml);
 
@@ -112,11 +130,7 @@ function functionHtml(functionObject, functionHtml) {
   let link = '';
   for (let i = 0; i < functionObject.link.length; i++) {
     link +=
-      '<a href="' +
-      functionObject.link[i] +
-      '" target="_blank">' +
-      functionObject.link[i] +
-      '</a>';
+      '<a href="' + functionObject.link[i] + '" target="_blank">' + functionObject.link[i] + '</a>';
   }
   functionHtml = functionHtml.replace('%link%', link);
 
