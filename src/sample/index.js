@@ -23,6 +23,57 @@ $(document).ready(function () {
     $(this).parent().children('ul.tree').toggle(300);
 
   });
+
+  wh = $(window).height();
+  ww = $(window).width();
+
+  // Bloqueia a altura da lateral de navegação e busca
+  $("#lateral").css({ "height": wh, "overflow-y": "scroll" });
+
+  $("#search-doc").autocomplete({
+    source: function (request, response) {
+      var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
+      var files = Array();
+
+      // Busca as ocorrências de identificadores (classes, métodos e funções) no arquivo de dados
+      dataProject.files.forEach(file => {
+        file.functionList.forEach(func => {
+          if (matcher.test(func.functionName)) {
+            files.push({
+              function: func.functionName,
+              type: func.type,
+              file: file.fileName,
+              label: func.functionName,
+              value: func.functionName
+            });
+          }
+        })
+      });
+
+      response(files);
+    }
+  });
+
+  // Renderiza os itens da forma que quero aproveitando o bootstrap
+  $("#search-doc").autocomplete("instance")._renderItem = function (ul, item) {
+    return $("<li class='list-group-item d-flex justify-content-between align-items-center'>")
+      .attr("data-value", item.function)
+      .append(`<a href="#" onclick="return loadIframe('file.html?file=${item.file}&anchor=${item.function}')">` + item.function + "</a>")
+      .append("<span class='badge badge-primary badge-pill'>" + item.file + "</span>")
+      .appendTo(ul);
+  };
+
+  // Renderiza o menu da forma que quero aproveitando o bootstrap
+  $("#search-doc").autocomplete("instance")._renderMenu = function (ul, items) {
+    var that = this;
+    $.each(items, function (index, item) {
+      that._renderItemData(ul, item);
+    });
+    $(ul).addClass("list-group");
+
+    // Trava a altura da lista de resultados
+    $(ul).css({ "max-height": wh - 200, "overflow-y": "scroll" });
+  };
 });
 
 function treeHtml(object) {

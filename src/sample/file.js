@@ -15,6 +15,10 @@ $(document).ready(function () {
       content += functionHtml(fileData.functionList[key], htmlModel);
     }
     $('#content').html(content);
+
+    $('html, body').animate({
+      'scrollTop': $('#' + getUrlParameter('anchor')).offset().top
+    }, 500);
   }
 });
 

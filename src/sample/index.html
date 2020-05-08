@@ -13,6 +13,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="./data.js"></script>
   <script src="./index.js"></script>
 </head>
@@ -20,19 +21,26 @@
 <body>
   <div class="">
     <div class="row no-gutters">
-      <div class="col-md-3">
+      <div id="lateral" class="col-md-3">
         <div class="card">
           <div class="card-header">
-            Root
+            Buscar funções
           </div>
           <div class="tree card-body">
-            <ul class="nav nav-list" id="tree"></ul>
+            <input type="search" id="search-doc" class="form-control" placeholder="Buscar">
+          </div>
+          <div class="card">
+            <div class="card-header">
+              Projeto
+            </div>
+            <div class="tree card-body">
+              <ul class="nav nav-list" id="tree"></ul>
+            </div>
           </div>
         </div>
       </div>
       <div id="conteudo" class="col-md-9"></div>
     </div>
-  </div>
   </div>
 </body>
 
