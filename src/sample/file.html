@@ -1,52 +1,59 @@
 <html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="./file.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+    <script src="./data.js"></script>
+    <script src="./file.js"></script>
+  </head>
 
-<head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" type="text/css" href="./file.css" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-    crossorigin="anonymous"></script>
-  <script src="./data.js"></script>
-  <script src="./file.js"></script>
-</head>
+  <body>
+    <div class="container-xl">
+      <div class="row no-gutters">
+        <div class="col">
+          <div class="card">
+            <div class="card-header" id="fonte">
+              Fonte
+            </div>
 
-<body>
+            <div class="card-body">
+              <div id="content">
+                <a id="%functionName%"></a>
+                <h3>%functionName% <small class="text-muted">%type%</small></h3>
+                <hr />
 
-  <div class="container-xl">
-    <div class="row no-gutters">
-      <div class="col">
-        <div class="card">
-          <div class="card-header" id="fonte">
-            Fonte
-          </div>
+                <p class="lead">%description%</p>
 
-          <div class="card-body">
+                <dl>
+                  <dt>Autor</dt>
+                  <dd>%author%</dd>
+                  <dt>Desde</dt>
+                  <dd>%since%</dd>
+                  <dt>Versão</dt>
+                  <dd>%version%</dd>
+                </dl>
 
-            <div id="content">
-
-              <a id="%functionName%"></a>
-              <h3>%functionName% <small class="text-muted">%type%</small></h3>
-              <hr>
-
-              <p class="lead">%description%</p>
-
-              <dl>
-                <dt>Autor</dt>
-                <dd>%author%</dd>
-                <dt>Desde</dt>
-                <dd>%since%</dd>
-                <dt>Versão</dt>
-                <dd>%version%</dd>
-              </dl>
-
-              <!--
+                <!--
               		<h3>Sumário</h3>
               		<h4>Construtores</h4>
               
@@ -69,44 +76,40 @@
               		<dd>$summary</dd>
               		</dl>
               		-->
-              <h3>Definição</h3>
+                <h3>Definição</h3>
 
-              <h3>Sintaxe</h3>
+                <h3>Sintaxe</h3>
 
-              <p>
-                <code>%sintaxe%</code>
-              </p>
+                <p>
+                  <code>%sintaxe%</code>
+                </p>
 
-              %param%
+                %param% %return%
 
-              %return%
+                <h3>Exemplo</h3>
 
-              <h3>Exemplo</h3>
+                %example%
+                <!--<code>$example.code</code>-->
 
-              %example%
-              <!--<code>$example.code</code>-->
+                <h3>Outras Informações</h3>
 
-              <h3>Outras Informações</h3>
+                <table>
+                  %otherInfo%
+                  <!---->
+                </table>
 
-              <table>
-                %otherInfo%
-                <!---->
-              </table>
+                <h3>Veja também</h3>
+                %link%
 
-              <h3>Veja também</h3>
-              %link%
-
-              <!--<a href="$ref.url" target="_blank">$ref.description</a>$ref.description-->
-              <br>
-              <hr>
-              <br>
+                <!--<a href="$ref.url" target="_blank">$ref.description</a>$ref.description-->
+                <br />
+                <hr />
+                <br />
+              </div>
             </div>
-
           </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

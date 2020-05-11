@@ -16,9 +16,12 @@ $(document).ready(function () {
     }
     $('#content').html(content);
 
-    $('html, body').animate({
-      'scrollTop': $('#' + getUrlParameter('anchor')).offset().top
-    }, 500);
+    $('html, body').animate(
+      {
+        scrollTop: $('#' + getUrlParameter('anchor')).offset().top,
+      },
+      500
+    );
   }
 });
 
@@ -50,7 +53,7 @@ function functionHtml(functionObject, functionHtml) {
     'return',
     'example',
     'link',
-    'type'
+    'type',
   ];
   functionHtml = functionHtml.replace(
     /\%functionName\%/g,
@@ -69,17 +72,17 @@ function functionHtml(functionObject, functionHtml) {
   let sintaxe = functionObject.functionName + '(';
   let param = '';
 
-  param += "<h3>Parâmetros</h3>"
+  param += '<h3>Parâmetros</h3>';
 
   if (functionObject.param.length > 0) {
-
-    param += '<table class="table table-striped table-bordered table-condensed table-sm">';
-    param += "<thead> <tr>";
-    param += "    <th>Nome</th>";
-    param += "    <th>Tipo</th>";
+    param +=
+      '<table class="table table-striped table-bordered table-condensed table-sm">';
+    param += '<thead> <tr>';
+    param += '    <th>Nome</th>';
+    param += '    <th>Tipo</th>';
     // param += "    <th>Uso</th>";
-    param += "    <th>Descrição</th>";
-    param += "  </tr> </thead> <tbody>";
+    param += '    <th>Descrição</th>';
+    param += '  </tr> </thead> <tbody>';
     // param += "  </thead> <tbody>";
 
     for (let i = 0; i < functionObject.param.length; i++) {
@@ -92,8 +95,7 @@ function functionHtml(functionObject, functionHtml) {
       param += '<td>' + functionObject.param[i].description + '</td></tr>';
     }
 
-    param += "</tbody></table>";
-
+    param += '</tbody></table>';
   }
 
   sintaxe += ')';
@@ -103,24 +105,24 @@ function functionHtml(functionObject, functionHtml) {
 
   let returnHtml = '';
 
-  returnHtml += "<h3>Retorno</h3>"
+  returnHtml += '<h3>Retorno</h3>';
 
   if (functionObject.return.length > 0) {
-
-    returnHtml += '<table class="table table-striped table-bordered table-condensed table-sm">';
-    returnHtml += "<thead> <tr>";
-    returnHtml += "      <th>Tipo</th>";
-    returnHtml += "      <th>Descrição</th>";
-    returnHtml += "    </tr>";
-    returnHtml += "  </tr> </thead> <tbody>";
+    returnHtml +=
+      '<table class="table table-striped table-bordered table-condensed table-sm">';
+    returnHtml += '<thead> <tr>';
+    returnHtml += '      <th>Tipo</th>';
+    returnHtml += '      <th>Descrição</th>';
+    returnHtml += '    </tr>';
+    returnHtml += '  </tr> </thead> <tbody>';
 
     for (let i = 0; i < functionObject.return.length; i++) {
       returnHtml += '<tr><td>' + functionObject.return[i].type + '</td>';
-      returnHtml += '<td>' + functionObject.return[i].description + '</td></tr>';
+      returnHtml +=
+        '<td>' + functionObject.return[i].description + '</td></tr>';
     }
 
-    returnHtml += "</tbody></table>";
-
+    returnHtml += '</tbody></table>';
   }
 
   functionHtml = functionHtml.replace('%return%', returnHtml);
@@ -134,7 +136,11 @@ function functionHtml(functionObject, functionHtml) {
   let link = '';
   for (let i = 0; i < functionObject.link.length; i++) {
     link +=
-      '<a href="' + functionObject.link[i] + '" target="_blank">' + functionObject.link[i] + '</a>';
+      '<a href="' +
+      functionObject.link[i] +
+      '" target="_blank">' +
+      functionObject.link[i] +
+      '</a>';
   }
   functionHtml = functionHtml.replace('%link%', link);
 
