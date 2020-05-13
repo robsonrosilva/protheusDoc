@@ -16,12 +16,14 @@ $(document).ready(function () {
     }
     $('#content').html(content);
 
-    $('html, body').animate(
-      {
-        scrollTop: $('#' + getUrlParameter('anchor')).offset().top,
-      },
-      500
-    );
+    if ($('#' + getUrlParameter('anchor')).offset()) {
+      $('html, body').animate(
+        {
+          scrollTop: $('#' + getUrlParameter('anchor')).offset().top,
+        },
+        500
+      );
+    }
   }
 });
 
@@ -54,27 +56,48 @@ function functionHtml(functionObject, functionHtml) {
     'example',
     'link',
     'type',
+    'see',
   ];
-  functionHtml = functionHtml.replace(
-    /\%functionName\%/g,
-    functionObject.functionName
-  );
+
+  let nameSplit = functionObject.functionName.split('::');
+  if (functionObject.functionName.search('::') && nameSplit.length > 1) {
+    functionHtml = functionHtml.replace(
+      /\%functionName\%/g,
+      nameSplit[1] + ` <small> of Class ${nameSplit[0]} </small>`
+    );
+  } else {
+    functionHtml = functionHtml.replace(
+      /\%functionName\%/g,
+      functionObject.functionName
+    );
+  }
   functionHtml = functionHtml.replace(
     '%description%',
     functionObject.description
   );
 
-  functionHtml = functionHtml.replace('%type%', functionObject.type);
-  functionHtml = functionHtml.replace('%author%', functionObject.author);
-  functionHtml = functionHtml.replace('%since%', functionObject.since);
-  functionHtml = functionHtml.replace('%version%', functionObject.version);
+  functionHtml = functionHtml.replace(
+    '%type%',
+    functionObject.type ? functionObject.type : ''
+  );
+  functionHtml = functionHtml.replace(
+    '%author%',
+    functionObject.author ? functionObject.author : ''
+  );
+  functionHtml = functionHtml.replace(
+    '%since%',
+    functionObject.since ? functionObject.since : ''
+  );
+  functionHtml = functionHtml.replace(
+    '%version%',
+    functionObject.version ? functionObject.version : ''
+  );
 
-  let sintaxe = functionObject.functionName + '(';
+  let sintaxe = functionObject.functionName.replace('::', '():') + '(';
   let param = '';
 
-  param += '<h3>Parâmetros</h3>';
-
   if (functionObject.param.length > 0) {
+    param += '<h3>Parâmetros</h3>';
     param +=
       '<table class="table table-striped table-bordered table-condensed table-sm">';
     param += '<thead> <tr>';
@@ -103,11 +126,33 @@ function functionHtml(functionObject, functionHtml) {
   functionHtml = functionHtml.replace('%sintaxe%', sintaxe);
   functionHtml = functionHtml.replace('%param%', param);
 
+  let history = '';
+
+  if (functionObject.history.length > 0) {
+    history += '<h4>Histórico</h4>';
+    history +=
+      '<table class="table table-striped table-bordered table-condensed table-sm">';
+    history += '<thead> <tr>';
+    history += '    <th>Nome</th>';
+    history += '    <th>Data</th>';
+    history += '    <th>Descrição</th>';
+    history += '  </tr> </thead> <tbody>';
+
+    for (let i = 0; i < functionObject.history.length; i++) {
+      history += '<tr><td>' + functionObject.history[i].username + '</td>';
+      history += '<td>' + functionObject.history[i].date + '</td>';
+      history += '<td>' + functionObject.history[i].description + '</td></tr>';
+    }
+
+    history += '</tbody></table>';
+  }
+
+  functionHtml = functionHtml.replace('%history%', history);
+
   let returnHtml = '';
 
-  returnHtml += '<h3>Retorno</h3>';
-
   if (functionObject.return.length > 0) {
+    returnHtml += '<h3>Retorno</h3>';
     returnHtml +=
       '<table class="table table-striped table-bordered table-condensed table-sm">';
     returnHtml += '<thead> <tr>';
@@ -127,22 +172,26 @@ function functionHtml(functionObject, functionHtml) {
 
   functionHtml = functionHtml.replace('%return%', returnHtml);
 
-  let example = '';
+  let example = functionObject.example.length ? '<h3>Exemplo</h3>' : '';
   for (let i = 0; i < functionObject.example.length; i++) {
     example += '<code>' + functionObject.example[i] + '</code>';
   }
   functionHtml = functionHtml.replace('%example%', example);
 
-  let link = '';
+  let see = '';
   for (let i = 0; i < functionObject.link.length; i++) {
-    link +=
+    see +=
       '<a href="' +
       functionObject.link[i] +
       '" target="_blank">' +
       functionObject.link[i] +
       '</a>';
   }
-  functionHtml = functionHtml.replace('%link%', link);
+  if (functionObject.see) {
+    see = (see.length ? see + '<br>' : '') + functionObject.see;
+  }
+
+  functionHtml = functionHtml.replace('%link%', see);
 
   let otherInfo = '';
   for (var prop in functionObject) {
@@ -157,6 +206,10 @@ function functionHtml(functionObject, functionHtml) {
       }
     }
   }
+  if (otherInfo.length) {
+    otherInfo = '<h3>Outras Informações</h3><table>' + otherInfo + '</table>';
+  }
+
   functionHtml = functionHtml.replace('%otherInfo%', otherInfo);
 
   return functionHtml;

@@ -169,7 +169,7 @@ export class ProtheusDocHTML {
           let itemDoc: ItemProtheusDoc = new ItemProtheusDoc();
           itemDoc.functionName = lines[key]
             .replace(this.regex, '$3')
-            .replace(/([A-Za-z0-9]+)+(.*)/, '$1')
+            .replace(/([A-Za-z0-9:]+)+(.*)/, '$1')
             .trim();
           key++;
           let inDescription = true;

@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome - teste result",
+      "url": "file:///D:/Dropbox/Trabalho/WORKSPACE/NPM/protheusDoc/test/out/index.html",
+      "webRoot": "${workspaceFolder}/test/out"
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
