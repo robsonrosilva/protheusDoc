@@ -93,3 +93,40 @@ dt {
 dd {
   margin-left: 12px !important;
 }
+
+#btnToTop {
+  display: inline-block;
+  background-color: #369;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+#btnToTop::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1em;
+  line-height: 30px;
+  color: #fff;
+}
+#btnToTop:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+#btnToTop:active {
+  background-color: #555;
+}
+#btnToTop.show {
+  opacity: 1;
+  visibility: visible;
+}
