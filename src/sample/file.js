@@ -88,6 +88,12 @@ function functionHtml(functionObject, functionHtml) {
       functionObject.functionName
     );
   }
+
+  functionHtml = functionHtml.replace(
+    '%functionAnchor%',
+    functionObject.functionName.replace(new RegExp(":", 'g'), "_")
+  );
+
   functionHtml = functionHtml.replace(
     '%description%',
     functionObject.description
@@ -114,7 +120,7 @@ function functionHtml(functionObject, functionHtml) {
   let param = '';
 
   if (functionObject.param.length > 0) {
-    param += '<h3>Parâmetros</h3>';
+    param += '<h4>Parâmetros</h4>';
     param +=
       '<table class="table table-striped table-bordered table-condensed table-sm">';
     param += '<thead> <tr>';
@@ -169,7 +175,7 @@ function functionHtml(functionObject, functionHtml) {
   let returnHtml = '';
 
   if (functionObject.return.length > 0) {
-    returnHtml += '<h3>Retorno</h3>';
+    returnHtml += '<h4>Retorno</h4>';
     returnHtml +=
       '<table class="table table-striped table-bordered table-condensed table-sm">';
     returnHtml += '<thead> <tr>';
@@ -189,7 +195,7 @@ function functionHtml(functionObject, functionHtml) {
 
   functionHtml = functionHtml.replace('%return%', returnHtml);
 
-  let example = functionObject.example.length ? '<h3>Exemplo</h3>' : '';
+  let example = functionObject.example.length ? '<h4>Exemplo</h4>' : '';
   for (let i = 0; i < functionObject.example.length; i++) {
     example += '<code>' + functionObject.example[i] + '</code>';
   }
@@ -224,7 +230,7 @@ function functionHtml(functionObject, functionHtml) {
     }
   }
   if (otherInfo.length) {
-    otherInfo = '<h3>Outras Informações</h3><table>' + otherInfo + '</table>';
+    otherInfo = '<h4>Outras Informações</h4><table>' + otherInfo + '</table>';
   }
 
   functionHtml = functionHtml.replace('%otherInfo%', otherInfo);

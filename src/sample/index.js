@@ -28,23 +28,37 @@ $(document).ready(function () {
 
   $('#search-doc').autocomplete({
     source: function (request, response) {
+      var files = Array();
       var matcher = new RegExp(
-        '^' + $.ui.autocomplete.escapeRegex(request.term),
+        $.ui.autocomplete.escapeRegex(request.term),
         'i'
       );
-      var files = Array();
 
       // Busca as ocorrências de identificadores (classes, métodos e funções) no arquivo de dados
       dataProject.files.forEach((file) => {
         file.functionList.forEach((func) => {
           if (matcher.test(func.functionName)) {
+
+            let label = "";            
+            let className = "";            
+            let nameSplit = func.functionName.split('::');
+
+            if (func.functionName.search('::') && nameSplit.length > 1) {
+              label = nameSplit[1]; 
+              className = nameSplit[0];
+            } else {
+              label = func.functionName;
+            }
+              
             files.push({
-              function: func.functionName,
+              function: func.functionName.replace(new RegExp(":", 'g'), "_"),
               type: func.type,
               file: file.fileName,
-              label: func.functionName,
-              value: func.functionName,
+              class: className,
+              label: label,
+              value: label,
             });
+            
           }
         });
       });
@@ -58,10 +72,10 @@ $(document).ready(function () {
     return $(
       "<li class='list-group-item d-flex justify-content-between align-items-center'>"
     )
-      .attr('data-value', item.function)
+      .attr('data-value', item.value)
       .append(
         `<a href="#" onclick="return loadIframe('file.html?file=${item.file}&anchor=${item.function}')">` +
-          item.function +
+        item.label + (item.class ? ` <small class="text-muted">${item.class}</small>` : '') + 
           '</a>'
       )
       .append(
