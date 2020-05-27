@@ -223,14 +223,14 @@ export class ProtheusDocHTML {
             .replace(/([A-Za-z0-9:]+)+(.*)/, '$1')
             .trim();
           key++;
-          let inDescription = true;
+          let currentAttribute = 'description';
           while (!lines[key].match(this.regexEnd) && key < lines.length) {
             if (lines[key].match(this.regexItem)) {
-              inDescription = false;
               let property: string = lines[key]
                 .replace(this.regexItem, '$2')
                 .toLowerCase()
                 .trim();
+              currentAttribute = property;
               let content: string = lines[key].replace(this.regexItem, '$4');
               if (property === 'return') {
                 let returnPar = new ProthesuDocReturn();
@@ -265,8 +265,13 @@ export class ProtheusDocHTML {
               } else if (Object.keys(itemDoc).includes(property)) {
                 itemDoc[property] = content;
               }
-            } else if (inDescription && lines[key].trim()) {
-              itemDoc.description += lines[key] + '\n';
+            } else if (
+              currentAttribute &&
+              lines[key].trim() &&
+              typeof itemDoc[currentAttribute] === 'string'
+            ) {
+              itemDoc[currentAttribute] +=
+                (itemDoc[currentAttribute] ? '<br>' : '') + lines[key];
             }
             key++;
           }
