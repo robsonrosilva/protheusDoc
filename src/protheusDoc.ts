@@ -23,7 +23,6 @@ export class ProtheusDocHTML {
     templatesPath?: string
   ): Promise<ProjectProtheusDoc> {
     return new Promise((resolve: Function, reject: Function) => {
-      let project = new ProjectProtheusDoc();
       let advplExtensions = ['prw', 'prx', 'prg', 'apw', 'apl', 'tlpp'];
       let promisses: Promise<FileProtheusDoc>[] = [];
 
@@ -64,66 +63,13 @@ export class ProtheusDocHTML {
 
           Promise.all(promisses)
             .then((files: FileProtheusDoc[]) => {
-              project.files = files;
-              project.tree = new TreeItems('raiz');
-              for (var x = 0; x < project.files.length; x++) {
-                for (var i = 0; i < pathsProject.length; i++) {
-                  project.files[x].fileName = project.files[x].fileName.replace(
-                    pathsProject[i],
-                    ''
-                  );
-                }
-
-                let paths: string[] = project.files[x].fileName.split(/\/|\\/);
-                //remove itens vazios
-                paths = paths.filter((x) => x);
-                this.addPath(project.tree, paths, project.files[x].fileName);
-              }
-              if (outPath) {
-                // se não tem templates usa os arquivos da sample
-                if (!templatesPath) {
-                  templatesPath = path.join(__dirname, 'sample');
-                }
-
-                fileSystem.mkdir(outPath, { recursive: true }, (err) => {
-                  if (err) throw err;
-                });
-
-                let filelist = ['index', 'file'];
-                let fileExtensions = ['css', 'html', 'js'];
-
-                filelist.forEach((file) => {
-                  let contentFile = '';
-                  fileExtensions.forEach((extension) => {
-                    contentFile = fileSystem.readFileSync(
-                      path.join(templatesPath, file + '.' + extension),
-                      'utf8'
-                    );
-
-                    fileSystem.writeFile(
-                      path.join(outPath, file + '.' + extension),
-                      contentFile,
-                      { flag: 'w' },
-                      function (err) {
-                        if (err) return console.log(err);
-                      }
-                    );
-                  });
-                });
-
-                fileSystem.writeFile(
-                  path.join(outPath, 'data.js'),
-                  `
-				  let dataProject = ${JSON.stringify(project)}
-				  `,
-                  { flag: 'w' },
-                  function (err) {
-                    if (err) return console.log(err);
-                  }
-                );
-              }
-
-              resolve(project);
+              this.InternalFilesInspect(
+                files,
+                resolve,
+                outPath,
+                pathsProject,
+                templatesPath
+              );
             })
             .catch((e) => {
               console.log(e);
@@ -133,6 +79,111 @@ export class ProtheusDocHTML {
           console.log(e);
         });
     });
+  }
+
+  public FilesInspect(
+    files: string[],
+    outPath: string,
+    templatesPath?: string
+  ): Promise<ProjectProtheusDoc> {
+    return new Promise((resolve: Function, reject: Function) => {
+      let promisses: Promise<FileProtheusDoc>[] = [];
+      for (var j = 0; j < files.length; j++) {
+        let fileName: string = files[j];
+
+        let conteudo = fileSystem.readFileSync(fileName, 'latin1');
+
+        promisses.push(this.FileInspect(conteudo, fileName));
+      }
+      Promise.all(promisses)
+        .then((files: FileProtheusDoc[]) => {
+          this.InternalFilesInspect(
+            files,
+            resolve,
+            outPath,
+            [''],
+            templatesPath
+          );
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    });
+  }
+
+  public InternalFilesInspect(
+    files: FileProtheusDoc[],
+    resolve: Function,
+    outPath: string,
+    pathsProject: string[],
+    templatesPath?: string
+  ) {
+    let project = new ProjectProtheusDoc();
+    project.files = files;
+    project.tree = new TreeItems('raiz');
+    for (var x = 0; x < project.files.length; x++) {
+      for (var i = 0; i < pathsProject.length; i++) {
+        if (pathsProject[i]) {
+          project.files[x].fileName = project.files[x].fileName.replace(
+            pathsProject[i],
+            ''
+          );
+        } else {
+          let aSplitName = project.files[x].fileName.split(/\/|\\/);
+          project.files[x].fileName = aSplitName[aSplitName.length - 1];
+        }
+      }
+
+      let paths: string[] = project.files[x].fileName.split(/\/|\\/);
+      //remove itens vazios
+      paths = paths.filter((x) => x);
+      this.addPath(project.tree, paths, project.files[x].fileName);
+    }
+    if (outPath) {
+      // se não tem templates usa os arquivos da sample
+      if (!templatesPath) {
+        templatesPath = path.join(__dirname, 'sample');
+      }
+
+      fileSystem.mkdir(outPath, { recursive: true }, (err) => {
+        if (err) throw err;
+      });
+
+      let filelist = ['index', 'file'];
+      let fileExtensions = ['css', 'html', 'js'];
+
+      filelist.forEach((file) => {
+        let contentFile = '';
+        fileExtensions.forEach((extension) => {
+          contentFile = fileSystem.readFileSync(
+            path.join(templatesPath, file + '.' + extension),
+            'utf8'
+          );
+
+          fileSystem.writeFile(
+            path.join(outPath, file + '.' + extension),
+            contentFile,
+            { flag: 'w' },
+            function (err) {
+              if (err) return console.log(err);
+            }
+          );
+        });
+      });
+
+      fileSystem.writeFile(
+        path.join(outPath, 'data.js'),
+        `
+		let dataProject = ${JSON.stringify(project)}
+		`,
+        { flag: 'w' },
+        function (err) {
+          if (err) return console.log(err);
+        }
+      );
+    }
+
+    resolve(project);
   }
 
   // cria atributo com o nome da pasta ou se for o último nível adiciona como arquivo
