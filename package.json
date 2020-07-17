@@ -1,6 +1,6 @@
 {
   "name": "protheusdoc-html",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Extension for interprate ProtheusDoc and generate HTML.",
   "types": "lib/src/index.d.ts",
   "main": "lib/src/index.js",
@@ -17,12 +17,12 @@
     "globby": "^10.0.2"
   },
   "devDependencies": {
-    "@types/node": "^10.14.14",
+    "@types/node": "^14.0.23",
     "asserts": "^4.0.2",
     "chai": "^4.2.0",
-    "cpy-cli": "^3.1.0",
-    "del-cli": "^3.0.0",
-    "typescript": "^3.5.3"
+    "cpy-cli": "^3.1.1",
+    "del-cli": "^3.0.1",
+    "typescript": "^3.9.7"
   },
   "directories": {
     "lib": "lib",
