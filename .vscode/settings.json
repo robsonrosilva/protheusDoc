@@ -12,7 +12,8 @@
   "editor.formatOnSave": true,
   "vsicons.projectDetection.autoReload": true,
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "files.trimTrailingWhitespace": true
   },
   "totvsLanguageServer.welcomePage": false,
   "totvsLanguageServer.askEncodingChange": true

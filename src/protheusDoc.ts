@@ -14,7 +14,7 @@ import { ProthesuDocHistory } from './models/protheus-doc-history';
 
 export class ProtheusDocHTML {
   regex: RegExp = /^(\s*\/\*\/(.*)?\{Protheus.doc\}\s*)(.*)?/i;
-  regexItem: RegExp = /^(\s?@)([A-Za-z0-9]+)+(\s)+(.*)?/i;
+  regexItem: RegExp = /^(\s*@)([A-Za-z0-9]+)+(\s)+(.*)?/i;
   regexEnd: RegExp = /(\*\/)/i;
 
   public ProjectInspect(
