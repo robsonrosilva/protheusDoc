@@ -243,7 +243,7 @@ export class ProtheusDocHTML {
               } else if (property === 'param') {
                 let param = new ProthesuDocParam();
                 let splitContent = content.split(',');
-                param.name = splitContent[0] ? splitContent[0].trim() : '';
+                param.name = splitContent[0] ? splitContent[0].trim().replace(/\[|\]/g, "") : '';
                 param.type = splitContent[1] ? splitContent[1].trim() : '';
                 param.description = splitContent[2]
                   ? content
@@ -253,6 +253,7 @@ export class ProtheusDocHTML {
                       )
                       .trim()
                   : '';
+                param.obrigatory = !splitContent[0].includes("[");
                 itemDoc.param.push(param);
               } else if (property === 'history') {
                 let history = new ProthesuDocHistory();

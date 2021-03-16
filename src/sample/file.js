@@ -41,7 +41,7 @@ $(document).ready(function () {
     e.preventDefault();
     $('html, body').animate({ scrollTop: 0 }, '300');
   });
-  
+
 });
 
 function getUrlParameter(sParam) {
@@ -126,7 +126,7 @@ function functionHtml(functionObject, functionHtml) {
     param += '<thead> <tr>';
     param += '    <th>Nome</th>';
     param += '    <th>Tipo</th>';
-    // param += "    <th>Uso</th>";
+    param += "    <th>Uso</th>";
     param += '    <th>Descrição</th>';
     param += '  </tr> </thead> <tbody>';
     // param += "  </thead> <tbody>";
@@ -137,7 +137,7 @@ function functionHtml(functionObject, functionHtml) {
 
       param += '<tr><td>' + functionObject.param[i].name + '</td>';
       param += '<td>' + functionObject.param[i].type + '</td>';
-      // param += '<td>' + functionObject.param[i].obrigatory + '</td>';
+      param += '<td>' + (functionObject.param[i].obrigatory ? "Obrigatório" : "Opcional") + '</td>';
       param += '<td>' + functionObject.param[i].description + '</td></tr>';
     }
 
