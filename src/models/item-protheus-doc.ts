@@ -14,10 +14,10 @@ export class ItemProtheusDoc {
   deprecated: string | undefined = undefined;
   example: string[] = [];
   history: ProthesuDocHistory[] = [];
-  sample: string | undefined = undefined;
+  sample: string[] | undefined = [];
   language: string | undefined = undefined;
   link: string[] = [];
-  obs: string | undefined = undefined;
+  obs: string[] | undefined = [];
   param: ProthesuDocParam[] = [];
   proptype: string | undefined = undefined;
   protected: string | undefined = undefined;
@@ -25,10 +25,10 @@ export class ItemProtheusDoc {
   return: ProthesuDocReturn[] = [];
   source: string | undefined = undefined;
   systemOper: string | undefined = undefined;
-  see: string | undefined = undefined;
+  see: string[] | undefined = [];
   since: string | undefined = undefined;
   table: string | undefined = undefined;
-  todo: string | undefined = undefined;
+  todo: string[] | undefined = [];
   type: string | undefined = undefined;
   version: string | undefined = undefined;
 }

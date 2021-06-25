@@ -243,7 +243,9 @@ export class ProtheusDocHTML {
               } else if (property === 'param') {
                 let param = new ProthesuDocParam();
                 let splitContent = content.split(',');
-                param.name = splitContent[0] ? splitContent[0].trim().replace(/\[|\]/g, "") : '';
+                param.name = splitContent[0]
+                  ? splitContent[0].trim().replace(/\[|\]/g, '')
+                  : '';
                 param.type = splitContent[1] ? splitContent[1].trim() : '';
                 param.description = splitContent[2]
                   ? content
@@ -253,7 +255,7 @@ export class ProtheusDocHTML {
                       )
                       .trim()
                   : '';
-                param.obrigatory = !splitContent[0].includes("[");
+                param.obrigatory = !splitContent[0].includes('[');
                 itemDoc.param.push(param);
               } else if (property === 'history') {
                 let history = new ProthesuDocHistory();
@@ -271,7 +273,10 @@ export class ProtheusDocHTML {
                       .trim()
                   : '';
                 itemDoc.history.push(history);
-              } else if (property === 'link' || property === 'example') {
+              } else if (
+                Object.prototype.toString.call(itemDoc[property]) ===
+                '[object Array]'
+              ) {
                 itemDoc[property].push(content);
               } else if (Object.keys(itemDoc).includes(property)) {
                 itemDoc[property] = content;

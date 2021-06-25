@@ -197,22 +197,23 @@ function functionHtml(functionObject, functionHtml) {
 
   let example = functionObject.example.length ? '<h4>Exemplo</h4>' : '';
   for (let i = 0; i < functionObject.example.length; i++) {
-    example += '<code>' + functionObject.example[i] + '</code>';
+    example += (i > 0 ? '<br>' : '') + '<code>' + functionObject.example[i] + '</code>';
   }
   functionHtml = functionHtml.replace('%example%', example);
 
   let see = '';
   for (let i = 0; i < functionObject.link.length; i++) {
-    see +=
+    see += (see ? '<br>' : '') +
       '<a href="' +
       functionObject.link[i] +
       '" target="_blank">' +
       functionObject.link[i] +
       '</a>';
   }
-  if (functionObject.see) {
-    see = (see.length ? see + '<br>' : '') + functionObject.see;
-  }
+
+  functionObject.see.forEach((_see) => {
+    see += (see ? '<br>' : '') + _see;
+  })
 
   functionHtml = functionHtml.replace('%link%', see);
 
@@ -220,12 +221,19 @@ function functionHtml(functionObject, functionHtml) {
   for (var prop in functionObject) {
     if (
       Object.keys(functionObject).includes(prop) &&
-      !fixedProperties.includes(prop) &&
-      typeof functionObject[prop] === 'string'
+      !fixedProperties.includes(prop)
     ) {
-      if (functionObject[prop]) {
+      if (functionObject[prop] && typeof functionObject[prop] === 'string') {
         otherInfo += '<tr><td>' + prop + '</td>';
         otherInfo += '<td>' + functionObject[prop] + '</td></tr>';
+      } else if (
+        functionObject[prop] &&
+        Object.prototype.toString.call(functionObject[prop]) ===
+        '[object Array]') {
+        functionObject[prop].forEach(item => {
+          otherInfo += '<tr><td>' + prop + '</td>';
+          otherInfo += '<td>' + item + '</td></tr>';
+        })
       }
     }
   }
