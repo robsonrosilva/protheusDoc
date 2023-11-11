@@ -1,13 +1,15 @@
 {
   "name": "protheusdoc-html",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Extension for interprate ProtheusDoc and generate HTML.",
   "types": "lib/src/index.d.ts",
   "main": "lib/src/index.js",
   "scripts": {
     "prepare": "npm run compile",
-    "compile": "tsc -p ./  && cpy 'sample/**' '../lib/' --cwd=src --parents",
-    "lint": "./node_modules/.bin/eslint ."
+    "compile": "tsc -p ./",
+    "postcompile": "cp -r ./src/sample ./lib",
+    "lint": "eslint . --ext .ts",
+    "lint-and-fix": "eslint . --ext .ts --fix"
   },
   "keywords": [],
   "author": "Robson Rogério Silva",
@@ -18,13 +20,14 @@
   },
   "devDependencies": {
     "@types/node": "^14.14.22",
-    "@typescript-eslint/eslint-plugin": "^4.14.0",
-    "@typescript-eslint/parser": "^4.14.0",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
     "asserts": "^4.0.2",
     "chai": "^4.2.0",
+    "cpy": "^11.0.0",
     "cpy-cli": "^3.1.1",
     "del-cli": "^3.0.1",
-    "eslint": "^7.18.0",
+    "eslint": "^7.32.0",
     "eslint-config-google": "^0.14.0",
     "typescript": "^3.9.7"
   },
